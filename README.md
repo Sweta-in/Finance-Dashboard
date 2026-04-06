@@ -45,6 +45,32 @@ A production-grade REST API for tracking income, expenses, and financial analyti
 | Docker                  | Multi-stage| 2-stage build: Maven builder → JRE-only runtime (small image)           |
 | H2                      | test-only  | In-memory DB for fast integration tests                                 |
 
+## Screenshots
+<img width="1919" height="998" alt="Screenshot 2026-04-06 180409" src="https://github.com/user-attachments/assets/281121cb-95ce-42fb-8af9-9d23c61f309f" />
+<img width="1919" height="999" alt="Screenshot 2026-04-06 181130" src="https://github.com/user-attachments/assets/d4f24d8b-9112-4ae1-afe5-62a673cd2623" />
+<img width="1919" height="997" alt="Screenshot 2026-04-06 181145" src="https://github.com/user-attachments/assets/e358ee6c-355d-4447-a270-99ac6dfb1111" />
+<img width="1919" height="1000" alt="Screenshot 2026-04-06 181158" src="https://github.com/user-attachments/assets/57830790-2b50-44a7-a00f-a4c7e4816226" />
+<img width="1919" height="1001" alt="Screenshot 2026-04-06 181211" src="https://github.com/user-attachments/assets/1daaff1d-f885-4938-98b2-f8d351fe8699" />
+<img width="1919" height="999" alt="Screenshot 2026-04-06 181222" src="https://github.com/user-attachments/assets/01749368-0ab6-48c3-aa67-4610358b6aa1" />
+<img width="1919" height="998" alt="Screenshot 2026-04-06 181233" src="https://github.com/user-attachments/assets/1b3deff3-3902-4ea9-bb2c-73cc048d7f12" />
+<img width="1919" height="1005" alt="Screenshot 2026-04-06 181243" src="https://github.com/user-attachments/assets/05456a3a-683f-4c73-8262-890687c790cc" />
+<img width="1919" height="1084" alt="Screenshot 2026-04-06 181307" src="https://github.com/user-attachments/assets/de91aa78-aaa0-4db4-a826-e7db61a256c9" />
+<img width="1919" height="998" alt="Screenshot 2026-04-06 181327" src="https://github.com/user-attachments/assets/5fe3f476-27de-460e-a86f-e8d0150427a5" />
+<img width="1919" height="999" alt="Screenshot 2026-04-06 181340" src="https://github.com/user-attachments/assets/cd0727bd-a8ee-40cf-a9ea-22edb3433d35" />
+<img width="1919" height="1006" alt="Screenshot 2026-04-06 181350" src="https://github.com/user-attachments/assets/e54e90d0-fc15-438b-90b8-bf3b2b305224" />
+<img width="1919" height="1001" alt="image" src="https://github.com/user-attachments/assets/1de73cc5-0c79-43db-ad1b-e0371e102316" />
+
+
+
+
+
+
+
+
+
+
+
+
 ## Quick Start
 
 ### Option A — Docker (30 seconds)
