@@ -1,6 +1,7 @@
 package com.finance.dashboard.repository;
 
 import com.finance.dashboard.domain.entity.FinancialRecord;
+import com.finance.dashboard.domain.entity.User;
 import com.finance.dashboard.domain.enums.RecordType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +21,8 @@ import java.util.UUID;
 @Repository
 public interface FinancialRecordRepository extends JpaRepository<FinancialRecord, UUID>,
         JpaSpecificationExecutor<FinancialRecord> {
+
+    List<FinancialRecord> findByCreatedBy(User user);
 
     @Query("""
             SELECT COALESCE(SUM(r.amount), 0)

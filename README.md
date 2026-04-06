@@ -139,6 +139,99 @@ The DataSeeder creates these accounts on startup (dev/local profiles only):
 | GET    | `/dashboard/trends`      | Yes  | ANALYST, ADMIN | Monthly income/expense trends (last N months)  |
 | GET    | `/dashboard/recent`      | Yes  | ANALYST, ADMIN | 10 most recent transactions                    |
 | GET    | `/dashboard/high-value`  | Yes  | ANALYST, ADMIN | Transactions above threshold (anomaly flagging)|
+| GET    | `/dashboard/anomalies`   | Yes  | ANALYST, ADMIN | Statistical anomaly detection (z-score + spike) |
+
+## Anomaly Detection
+
+The anomaly detection engine runs real-time statistical analysis on financial records to flag suspicious or unusual transactions. No ML dependencies — pure math that runs in-process.
+
+### What It Detects
+
+| Anomaly Type     | Method                  | Threshold                                      | What It Catches                                    |
+|------------------|-------------------------|-------------------------------------------------|----------------------------------------------------|
+| `HIGH_AMOUNT`    | Z-score (σ deviation)   | Amount > 2σ above user's mean transaction amount | One-off large transactions that deviate from norms |
+| `SUDDEN_SPIKE`   | Rolling 7-day average   | Amount > 3× the average of the prior 7 days     | Sudden spending bursts after a period of normalcy  |
+
+### How It Works
+
+**Z-Score Detection (HIGH_AMOUNT):**
+```
+z = (transaction_amount - mean) / standard_deviation
+Flagged if: z > 2.0
+Severity: min(1.0, (z - 2.0) / 2.0)  →  normalized 0.0 to 1.0
+```
+
+**Rolling Average Spike Detection (SUDDEN_SPIKE):**
+```
+rolling_avg = average(amounts in 7 days before transaction)
+ratio = transaction_amount / rolling_avg
+Flagged if: ratio > 3.0
+Severity: min(1.0, (ratio - 3.0) / 3.0)  →  normalized 0.0 to 1.0
+```
+
+### Endpoint
+
+```
+GET /api/v1/dashboard/anomalies?type=HIGH_AMOUNT&from=2024-01-01&to=2024-12-31
+```
+
+All query params are optional. Omitting `type` runs both detectors. Omitting date range scans all records.
+
+### curl Example
+
+```bash
+curl -s -X GET "http://localhost:8080/api/v1/dashboard/anomalies?type=HIGH_AMOUNT&from=2025-01-01&to=2025-12-31" \
+  -H "Authorization: Bearer <your-jwt-token>" \
+  -H "Content-Type: application/json" | jq .
+```
+
+### Sample Response
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "recordId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "amount": 850000.00,
+      "date": "2025-03-15",
+      "anomalyType": "HIGH_AMOUNT",
+      "severityScore": 0.78,
+      "description": "Amount ₹850000.00 is 4.2x above your average (z-score: 3.56)"
+    },
+    {
+      "recordId": "f9e8d7c6-b5a4-3210-fedc-ba9876543210",
+      "amount": 125000.00,
+      "date": "2025-03-22",
+      "anomalyType": "SUDDEN_SPIKE",
+      "severityScore": 0.45,
+      "description": "Amount ₹125000.00 is 4.3x your 7-day rolling average of ₹29000.00"
+    }
+  ],
+  "message": "2 anomalies detected",
+  "timestamp": "2025-03-25T10:30:00",
+  "path": "/api/v1/dashboard/anomalies"
+}
+```
+
+When no anomalies are found:
+```json
+{
+  "success": true,
+  "data": [],
+  "message": "No anomalies detected in the selected period",
+  "timestamp": "2025-03-25T10:30:00",
+  "path": "/api/v1/dashboard/anomalies"
+}
+```
+
+### Future Improvements
+
+- **ML-based detection** — Replace hard-coded z-score with Isolation Forest or DBSCAN for multi-dimensional anomaly detection (amount + frequency + category patterns)
+- **Configurable thresholds** — Allow admins to set per-user or per-category z-score and spike multiplier thresholds via API or config
+- **Email/webhook alerts** — Push real-time notifications when a new anomaly is detected during record creation
+- **Anomaly history** — Persist detected anomalies to a separate table for audit trail and trend analysis
+- **Category-aware baselines** — Compute separate statistical baselines per category (e.g., "Salary" vs "AWS Costs") for more accurate detection
 
 ## Role Permission Matrix
 

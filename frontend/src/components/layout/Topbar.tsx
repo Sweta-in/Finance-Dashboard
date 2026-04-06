@@ -10,6 +10,7 @@ const pageTitles: Record<string, string> = {
   '/records': 'Financial Records',
   '/records/new': 'New Record',
   '/high-value': 'High-Value Transactions',
+  '/anomalies': 'Anomaly Detection',
   '/users': 'User Management',
   '/settings': 'Settings',
   '/unauthorized': 'Unauthorized',

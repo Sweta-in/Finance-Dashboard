@@ -12,6 +12,9 @@ import Records from './pages/Records';
 import RecordCreate from './pages/RecordCreate';
 import RecordEdit from './pages/RecordEdit';
 import HighValue from './pages/HighValue';
+import Anomalies from './pages/Anomalies';
+import Goals from './pages/Goals';
+import Settings from './pages/Settings';
 import UsersPage from './pages/Users';
 import Unauthorized from './pages/Unauthorized';
 
@@ -109,6 +112,14 @@ export default function App() {
                   </PrivateRoute>
                 }
               />
+              <Route
+                path="anomalies"
+                element={
+                  <PrivateRoute roles={['ANALYST', 'ADMIN']}>
+                    <Anomalies />
+                  </PrivateRoute>
+                }
+              />
 
               {/* ADMIN only */}
               <Route
@@ -119,6 +130,10 @@ export default function App() {
                   </PrivateRoute>
                 }
               />
+
+              {/* All authenticated users */}
+              <Route path="settings" element={<Settings />} />
+              <Route path="goals" element={<Goals />} />
             </Route>
 
             {/* Catch all */}

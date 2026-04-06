@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   LayoutDashboard,
   Receipt,
   TrendingUp,
+  AlertTriangle,
+  Target,
   Users,
   Settings,
   LogOut,
@@ -14,15 +16,18 @@ import {
 import { cn } from '../../utils/cn';
 import { useAuth } from '../../hooks/useAuth';
 import { Badge, roleBadgeVariant } from '../ui/Badge';
+import api from '../../api/axios';
+import type { ApiResponse } from '../../types';
 
 interface NavItem {
   label: string;
   path: string;
   icon: React.ReactNode;
   roles?: ('ADMIN' | 'ANALYST' | 'VIEWER')[];
+  badgeCount?: number;
 }
 
-const navItems: NavItem[] = [
+const baseNavItems: Omit<NavItem, 'badgeCount'>[] = [
   {
     label: 'Dashboard',
     path: '/dashboard',
@@ -41,6 +46,17 @@ const navItems: NavItem[] = [
     roles: ['ADMIN', 'ANALYST'],
   },
   {
+    label: 'Anomalies',
+    path: '/anomalies',
+    icon: <AlertTriangle className="w-5 h-5" />,
+    roles: ['ADMIN', 'ANALYST'],
+  },
+  {
+    label: 'Goals',
+    path: '/goals',
+    icon: <Target className="w-5 h-5" />,
+  },
+  {
     label: 'Users',
     path: '/users',
     icon: <Users className="w-5 h-5" />,
@@ -56,6 +72,28 @@ interface SidebarProps {
 export function Sidebar({ collapsed, onToggle }: SidebarProps) {
   const { user, logout, hasRole } = useAuth();
   const location = useLocation();
+  const [anomalyCount, setAnomalyCount] = useState(0);
+
+  // Fetch anomaly count on mount
+  useEffect(() => {
+    async function fetchAnomalyCount() {
+      try {
+        const res = await api.get('/api/v1/dashboard/anomalies');
+        const items = (res.data as ApiResponse<unknown[]>).data;
+        setAnomalyCount(Array.isArray(items) ? items.length : 0);
+      } catch {
+        // Silently ignore — badge just won't show
+      }
+    }
+    if (hasRole(['ADMIN', 'ANALYST'])) {
+      fetchAnomalyCount();
+    }
+  }, [hasRole]);
+
+  const navItems: NavItem[] = baseNavItems.map((item) => ({
+    ...item,
+    badgeCount: item.path === '/anomalies' ? anomalyCount : undefined,
+  }));
 
   const filteredItems = navItems.filter(
     (item) => !item.roles || item.roles.some((r) => hasRole([r]))
@@ -120,18 +158,34 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
               {isActive && (
                 <motion.div
                   layoutId="sidebar-active"
-                  className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-r-full bg-[var(--accent-green)]"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-r-full bg-[var(--accent-blue)]"
                   transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                 />
               )}
-              <span className="shrink-0">{item.icon}</span>
+              <span className="shrink-0 relative">
+                {item.icon}
+                {/* Red dot badge for anomalies */}
+                {item.badgeCount !== undefined && item.badgeCount > 0 && (
+                  <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-[var(--accent-red)] animate-pulse-glow ring-2 ring-[var(--bg-surface)]" />
+                )}
+              </span>
               {!collapsed && (
                 <motion.span
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="truncate"
+                  className="truncate flex-1"
                 >
                   {item.label}
+                </motion.span>
+              )}
+              {/* Count badge visible when expanded */}
+              {!collapsed && item.badgeCount !== undefined && item.badgeCount > 0 && (
+                <motion.span
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  className="ml-auto px-1.5 py-0.5 text-[10px] font-mono font-bold rounded-full bg-[var(--accent-red)]/15 text-[var(--accent-red)] border border-[var(--accent-red)]/30"
+                >
+                  {item.badgeCount}
                 </motion.span>
               )}
             </NavLink>

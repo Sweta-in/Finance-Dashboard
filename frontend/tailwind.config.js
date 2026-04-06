@@ -11,10 +11,20 @@ export default {
       colors: {
         surface: 'var(--bg-surface)',
         elevated: 'var(--bg-elevated)',
+        'bg-base': 'var(--bg-base)',
+        'bg-hover': 'var(--bg-hover)',
+        'border-subtle': 'var(--border-subtle)',
+        'border-muted': 'var(--border-muted)',
+        'accent-blue': 'var(--accent-blue)',
+        'accent-green': 'var(--accent-green)',
+        'accent-red': 'var(--accent-red)',
+        'accent-orange': 'var(--accent-orange)',
+        'accent-purple': 'var(--accent-purple)',
       },
       animation: {
         shimmer: 'shimmer 1.5s infinite',
         'fade-slide-up': 'fadeSlideUp 0.4s ease-out',
+        'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
       },
       keyframes: {
         shimmer: {

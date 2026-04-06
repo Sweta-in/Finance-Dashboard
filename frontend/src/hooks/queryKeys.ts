@@ -12,4 +12,8 @@ export const queryKeys = {
     ['users', 'list', params] as const,
   SEARCH: (query: string) =>
     ['search', query] as const,
+  ANOMALIES: (params: object) =>
+    ['anomalies', params] as const,
+  GOALS: ['goals'] as const,
 };
+

@@ -137,3 +137,45 @@ export interface UserParams {
   role?: Role | '';
   status?: Status | '';
 }
+
+// ── Anomaly Detection ─────────────────────────────────────────
+
+export type AnomalyType = 'HIGH_AMOUNT' | 'SUDDEN_SPIKE';
+
+export interface AnomalyItem {
+  recordId: number;
+  amount: number;
+  date: string;
+  anomalyType: AnomalyType;
+  severityScore: number; // 0.0 to 1.0
+  description: string;
+}
+
+// ── Goals ─────────────────────────────────────────────────────
+
+export type GoalStatus = 'IN_PROGRESS' | 'COMPLETED';
+export type GoalIcon = 'Emergency' | 'Vacation' | 'Laptop' | 'House' | 'Car' | 'Other';
+
+export interface GoalResponse {
+  id: number;
+  goalName: string;
+  icon: GoalIcon;
+  targetAmount: number;
+  savedAmount: number;
+  deadline: string;
+  status: GoalStatus;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateGoalData {
+  goalName: string;
+  icon: GoalIcon;
+  targetAmount: number;
+  deadline: string;
+}
+
+export interface AddSavingsData {
+  amount: number;
+}
+
