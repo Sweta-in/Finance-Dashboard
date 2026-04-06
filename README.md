@@ -6,25 +6,25 @@ A production-grade REST API for tracking income, expenses, and financial analyti
 
 ```
 ┌──────────────────┐         ┌──────────────────────────────────────────────┐
-│  React Frontend  │         │              Spring Boot 3.2.5              │
+│  React Frontend  │         │              Spring Boot 3.2.5               │
 │  or  Postman     │ ──────► │                                              │
-└──────────────────┘  HTTP   │  Controller ──► Service ──► Repository      │
+└──────────────────┘  HTTP   │  Controller ──► Service ──► Repository       │
                       + JWT  │      │              │            │           │
                              │      ▼              ▼            ▼           │
-                             │  Validation    Biz Rules    JPA/Hibernate   │
+                             │  Validation    Biz Rules    JPA/Hibernate    │
                              │                                              │
-                             │  ┌────────────┐    ┌───────────────────┐    │
+                             │  ┌────────────┐    ┌───────────────────┐     │
                              │  │  Security   │    │   Cache Layer     │    │
                              │  │  JWT Auth   │    │ ConcurrentHashMap │    │
                              │  │  RBAC       │    │ + @CacheEvict     │    │
-                             │  └────────────┘    └───────────────────┘    │
+                             │  └────────────┘    └───────────────────┘     │
                              └──────────────┬──────────────────────────────┘
                                             │
                                             ▼
                              ┌──────────────────────────┐
-                             │  PostgreSQL 15 (Alpine)   │
-                             │  Flyway-managed schema    │
-                             │  5 versioned migrations   │
+                             │  PostgreSQL 15 (Alpine)  │
+                             │  Flyway-managed schema   │
+                             │  5 versioned migrations  │
                              └──────────────────────────┘
 ```
 
@@ -41,8 +41,8 @@ A production-grade REST API for tracking income, expenses, and financial analyti
 | MapStruct               | 1.5.5      | Compile-time mapping, zero reflection overhead vs. ModelMapper          |
 | Lombok                  | —          | Reduces boilerplate without runtime cost                                |
 | JJWT                    | 0.12.6     | HS256 token signing, lightweight and well-maintained                    |
-| SpringDoc OpenAPI       | 2.5.0      | Auto-generated Swagger UI from annotations                             |
-| Docker                  | Multi-stage| 2-stage build: Maven builder → JRE-only runtime (small image)          |
+| SpringDoc OpenAPI       | 2.5.0      | Auto-generated Swagger UI from annotations                              |
+| Docker                  | Multi-stage| 2-stage build: Maven builder → JRE-only runtime (small image)           |
 | H2                      | test-only  | In-memory DB for fast integration tests                                 |
 
 ## Quick Start
@@ -125,7 +125,7 @@ The DataSeeder creates these accounts on startup (dev/local profiles only):
 
 | Method | Path             | Auth | Role     | Description                                 |
 |--------|------------------|------|----------|---------------------------------------------|
-| GET    | `/users`         | Yes  | ADMIN    | List users (filterable by role/status)       |
+| GET    | `/users`         | Yes  | ADMIN    | List users (filterable by role/status)      |
 | GET    | `/users/{id}`    | Yes  | ADMIN    | Get user by UUID                            |
 | PATCH  | `/users/{id}`    | Yes  | ADMIN    | Update user role/status                     |
 | DELETE | `/users/{id}`    | Yes  | ADMIN    | Soft-deactivate user (sets INACTIVE)        |
