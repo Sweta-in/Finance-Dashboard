@@ -58,6 +58,8 @@ A production-grade REST API for tracking income, expenses, and financial analyti
 <img width="1919" height="998" alt="Screenshot 2026-04-06 181327" src="https://github.com/user-attachments/assets/5fe3f476-27de-460e-a86f-e8d0150427a5" />
 <img width="1919" height="999" alt="Screenshot 2026-04-06 181340" src="https://github.com/user-attachments/assets/cd0727bd-a8ee-40cf-a9ea-22edb3433d35" />
 <img width="1919" height="1006" alt="Screenshot 2026-04-06 181350" src="https://github.com/user-attachments/assets/e54e90d0-fc15-438b-90b8-bf3b2b305224" />
+<img width="1919" height="1008" alt="Screenshot 2026-04-06 181403" src="https://github.com/user-attachments/assets/0e1a0229-0189-4e2f-afed-460c7833af5b" />
+<img width="1919" height="621" alt="Screenshot 2026-04-06 181419" src="https://github.com/user-attachments/assets/855d0c5f-2f15-4e42-8ab1-9015680a3344" />
 <img width="1919" height="1001" alt="image" src="https://github.com/user-attachments/assets/1de73cc5-0c79-43db-ad1b-e0371e102316" />
 
 
