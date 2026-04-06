@@ -1,0 +1,44 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: finance-postgres
+    environment:
+      POSTGRES_DB: financedb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - finance-network
+
+  app:
+    build: .
+    container_name: finance-app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      DB_URL: jdbc:postgresql://postgres:5432/financedb
+      DB_USER: postgres
+      DB_PASS: postgres
+      JWT_SECRET: change-this-in-production-must-be-at-least-256-bits-long-for-hs256
+    ports:
+      - "8080:8080"
+    networks:
+      - finance-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  finance-network:
+    driver: bridge

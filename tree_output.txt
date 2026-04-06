@@ -1,0 +1,83 @@
+Folder PATH listing for volume Windows-SSD
+Volume serial number is 00B4-5093
+C:\PROJECTSS\BACKENDFINTECH\SRC\MAIN\JAVA
++---com
+    +---finance
+        +---dashboard
+            ¦   FinanceDashboardApplication.java
+            ¦   
+            +---config
+            ¦       CacheConfig.java
+            ¦       CorsConfig.java
+            ¦       DataSeeder.java
+            ¦       JwtConfig.java
+            ¦       OpenApiConfig.java
+            ¦       SecurityConfig.java
+            ¦       
+            +---controller
+            ¦       AuthController.java
+            ¦       DashboardController.java
+            ¦       RecordController.java
+            ¦       UserController.java
+            ¦       
+            +---domain
+            ¦   +---entity
+            ¦   ¦       FinancialRecord.java
+            ¦   ¦       User.java
+            ¦   ¦       
+            ¦   +---enums
+            ¦           RecordType.java
+            ¦           Role.java
+            ¦           UserStatus.java
+            ¦           
+            +---dto
+            ¦   +---request
+            ¦   ¦       CreateRecordRequest.java
+            ¦   ¦       LoginRequest.java
+            ¦   ¦       RegisterRequest.java
+            ¦   ¦       UpdateRecordRequest.java
+            ¦   ¦       UpdateUserRequest.java
+            ¦   ¦       
+            ¦   +---response
+            ¦       ¦   AuthResponse.java
+            ¦       ¦   CategorySummaryResponse.java
+            ¦       ¦   DashboardSummaryResponse.java
+            ¦       ¦   MonthlyTrendResponse.java
+            ¦       ¦   RecordResponse.java
+            ¦       ¦   UserResponse.java
+            ¦       ¦   
+            ¦       +---wrapper
+            ¦               ApiResponse.java
+            ¦               PagedResponse.java
+            ¦               
+            +---exception
+            ¦       AccessDeniedException.java
+            ¦       DuplicateResourceException.java
+            ¦       GlobalExceptionHandler.java
+            ¦       ResourceNotFoundException.java
+            ¦       
+            +---mapper
+            ¦       RecordMapper.java
+            ¦       UserMapper.java
+            ¦       
+            +---repository
+            ¦   ¦   FinancialRecordRepository.java
+            ¦   ¦   UserRepository.java
+            ¦   ¦   
+            ¦   +---specification
+            ¦           RecordSpecification.java
+            ¦           
+            +---security
+            ¦       CustomUserDetailsService.java
+            ¦       JwtAuthenticationFilter.java
+            ¦       JwtTokenProvider.java
+            ¦       
+            +---service
+            ¦       AuthService.java
+            ¦       DashboardService.java
+            ¦       RecordService.java
+            ¦       UserService.java
+            ¦       
+            +---util
+                    ResponseBuilder.java
+                    

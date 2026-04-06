@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: finance-dashboard
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  jackson:
+    default-property-inclusion: NON_NULL
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+  cache:
+    type: simple
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+jwt:
+  secret: ${JWT_SECRET:finance-dashboard-secret-key-change-in-prod-min-256-bits-long-enough}
+  expiration: ${JWT_EXPIRATION:86400000}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: method
+
+logging:
+  level:
+    AUDIT: INFO
+    com.finance.dashboard: DEBUG
+    org.springframework.security: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when-authorized
