@@ -1,25 +1,55 @@
 HELP.md
+
+# ─── Environment files (NEVER commit these) ───
+.env
+.env.local
+.env.production
+.env.staging
+.env.*.local
+
+# ─── Java / Maven ───
 target/
-!.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+*.class
+*.jar
+*.war
+*.ear
+.mvn/
+mvnw.cmd
+!mvnw
+!.mvn/wrapper/maven-wrapper.jar
 
-### IntelliJ IDEA ###
-.idea
-*.iws
+# ─── Spring Boot ───
+*.log
+logs/
+spring-shell.log
+
+# ─── Frontend ───
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/.vite/
+frontend/.env
+frontend/.env.local
+frontend/.env.production
+frontend/.env.*.local
+
+# ─── IDE ───
+.idea/
+.vscode/
 *.iml
+*.iws
 *.ipr
-
-### Eclipse ###
-.apt_generated
 .classpath
-.factorypath
 .project
-.settings
+.settings/
+.apt_generated
+.factorypath
 .springBeans
 .sts4-cache
 
-### NetBeans ###
+# ─── Eclipse / NetBeans ───
 /nbproject/private/
 /nbbuild/
 /dist/
@@ -29,13 +59,22 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### VS Code ###
-.vscode/
-
-### OS ###
+# ─── OS ───
 .DS_Store
+.DS_Store?
+._*
 Thumbs.db
+ehthumbs.db
+Desktop.ini
 
-### Environment ###
-.env
-*.log
+# ─── Docker ───
+docker-compose.override.yml
+
+# ─── Database ───
+*.sqlite
+*.sqlite3
+*.db
+
+# ─── Test output ───
+surefire-reports/
+test-output/

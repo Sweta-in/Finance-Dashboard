@@ -1,8 +1,14 @@
+# spring:
+#   datasource:
+#     url: ${DB_URL:jdbc:postgresql://localhost:5432/financedb}
+#     username: ${DB_USER:postgres}
+#     password: ${DB_PASS:postgres}
+#     driver-class-name: org.postgresql.Driver
 spring:
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/financedb}
-    username: ${DB_USER:postgres}
-    password: ${DB_PASS:postgres}
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASS}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
